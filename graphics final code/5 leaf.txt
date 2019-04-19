@@ -1,0 +1,119 @@
+// ConsoleApplication7.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+
+
+//int _tmain(int argc, _TCHAR* argv[])
+//{
+//	return 0;
+//}
+
+#include <stdio.h>
+#include <glut.h>
+
+void Top(void)
+{
+	glColor3f(1,0.0,0.0);
+	glBegin(GL_TRIANGLES);
+		glVertex2f(0,0);
+		glVertex2f(.05,.2);
+		glVertex2f(-0.05,.2);
+	glEnd();
+	glFlush();
+}
+
+void Polygon_Square(void)
+{
+	glColor3f(0,1,0);
+	glBegin(GL_POLYGON);
+		glVertex2f(0,.2);
+		glVertex2f(.15,.35);
+		glVertex2f(0,.50);
+		glVertex2f(-0.15,.35);
+	//	glVertex2f(0,.70);
+	
+	glEnd();
+	glFlush();
+}
+
+void Polygon(void)
+{
+	glColor3f(0,0,1);
+	glBegin(GL_POLYGON);
+		glVertex2f(0 ,.50);
+		glVertex2f(.15,.60);
+		glVertex2f(.05,.75);
+		//glVertex2f(0,.70);
+		
+		//glVertex2f(0 ,.50);
+		//glVertex2f(-.15,.60);
+		glVertex2f(-.05,.75);
+		glVertex2f(-.15,.60);
+		//glVertex2f(0,.70);
+	glEnd();
+	glFlush();
+}
+
+
+void Polygon1(void)
+{
+	glBegin(GL_POLYGON);
+		glColor3f(0,1,0);
+		glVertex2f(0,.70);
+		glVertex2f(.05,.75);
+		glColor3f(1,0,0);
+		glVertex2f(.10,.80);
+		glColor3f(0,0,1);
+		glVertex2f(0,.95);
+
+		glColor3f(0,0,1);
+		glVertex2f(0,.70);
+		glVertex2f(-.05,.75);
+		glColor3f(1,0,0);
+		glVertex2f(-0.10,.80);
+		glColor3f(0,0,1);
+		glVertex2f(0,.95);
+		
+	glEnd();
+	glFlush();
+}
+
+void show(void)
+{
+	Polygon1();
+	Polygon();
+	Polygon_Square();
+	Top();
+}
+
+void Call(int x)
+{
+	glPushMatrix();
+	glRotatef(x, 0, 0, 1);
+	show();
+	glPopMatrix();
+}
+
+void display(void)
+{
+	show();
+	//glClear(GL_COLOR_BUFFER_BIT);
+	for(int i=0;i<350;i+=70)
+	{
+		Call(i);
+	}
+	glFlush();
+}
+
+int main(int argc, char** argv)
+{
+	glutInit(&argc,argv);
+	glutInitDisplayMode(GLUT_SINGLE);
+	glutInitWindowSize(500,500);
+	glutInitWindowPosition(500,50);
+	glutCreateWindow("");
+	glutDisplayFunc(display);
+	glutMainLoop();
+	return 0;
+}

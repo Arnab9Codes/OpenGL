@@ -1,0 +1,173 @@
+// leaf star rotating.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+
+#include <stdio.h>
+#include <GLUT.H>
+
+void t()
+{
+	glBegin(GL_TRIANGLES);
+	glColor3f(0.99,0.0,0.0);
+	glVertex2f(0.0,0.0);
+	glVertex2f(0.05,0.10);
+	glVertex2f(-0.05,0.10);
+	glEnd();
+}
+void p1()
+{
+	glBegin(GL_POLYGON);
+	glColor3f(0.0,0.99,0.0);
+	glVertex2f(0.0,.10);
+	glVertex2f(0.075,0.15);
+	glVertex2f(0.0,0.20);
+	glVertex2f(-0.075,0.15);
+	//glVertex2f(0.0,.10);
+	glEnd();
+}
+void p2()
+{
+	glBegin(GL_POLYGON);
+	glColor3f(0.0,0.0,0.99);
+	glVertex2f(0.0,.20);
+	glVertex2f(0.10,0.250);
+	glVertex2f(0.046,0.30);
+	glVertex2f(-0.046,0.30);
+	glVertex2f(-0.10,0.250);
+	//glVertex2f(0.0,.10);
+	glEnd();
+}
+
+void p3()
+{
+	glBegin(GL_POLYGON);
+	glColor3f(0.0,0.90,0.0);
+	glVertex2f(0.046,0.30);
+	glColor3f(0.99,0.0,0.0);
+	glVertex2f(0.06,0.35);
+	glColor3f(0.0,0.0,0.90);
+	glVertex2f(0.0,0.45);
+	glColor3f(0.99,0.0,0.0);
+	glVertex2f(-0.06,0.35);
+	glColor3f(0.0,0.90,0.0);
+	glVertex2f(-0.046,0.30);
+	glEnd();
+}
+
+void drawing()
+{
+	
+	t();
+	p1();
+	p2();
+	p3();
+	
+	glFlush();
+}
+void rotate(int degree)
+{
+	
+	glPushMatrix();
+	glRotatef(degree,0,0,1);
+	drawing();
+	glPopMatrix();
+
+}
+
+void display()
+{
+	drawing();
+
+	for(int i=0;i<360;i=i+72){
+
+		//glClear(GL_COLOR_BUFFER_BIT);
+		rotate(i);
+	}
+}
+
+void cll(float x)
+{
+	
+	glRotatef(x,0.0,0.0,1.0);
+	display();
+
+}
+void display2()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	//drawing();
+	/**for(int i=0;i<=360;i=i+5)
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+		glPushMatrix();
+		cll(i);
+
+		glutSwapBuffers();
+				//
+		glutPostRedisplay();
+		//glFlush();
+	
+		glPopMatrix();
+		
+		
+		//
+	}**/
+	int i = 0;
+	double angle=0;
+
+    while(1)
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+        angle= i * 0.05;
+        i++;
+        glPushMatrix();
+        glRotatef(angle, 0, 0, -1);
+        display();
+        glPopMatrix();
+        glutSwapBuffers();
+    }
+}
+
+void keyboard(unsigned char key, int x,int y)
+{
+	switch(key)
+	{
+	case 'a':
+	//	glMatrixMode(GL_MODELVIEW);
+		//glLoadIdentity();
+
+		break;
+	default:
+		break;
+	}
+	//glutPostRedisplay();
+
+}
+
+int main(int argc, char** argv)
+{
+	glutInit(&argc,argv);
+
+	//glutInitDisplayMode(GLUT_SINGLE);
+	glutInitDisplayMode(GLUT_DOUBLE);
+	glutInitWindowSize(600,600);
+	glutInitWindowPosition(900,0);
+
+	glutCreateWindow("leaf");
+
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+
+
+	glutDisplayFunc(display2);
+	glutKeyboardFunc(keyboard);
+
+	glutMainLoop();
+
+	return 0;
+
+}
+
+
+
